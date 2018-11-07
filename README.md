@@ -24,3 +24,14 @@ RetVal:<List> = [Layer:<Integer>, Signature:<String>, AttrList:<List>]
 python -O main.py <XML_FILE>
 ```
 *-O: not display debug message*
+</br></br>
+The first element in return list means which layer it belongs. And it also can be used for grouping.
+```
+[3, 'EntityType', [['Name', 'Chassis'], ['BaseType', 'Resource.v1_0_0.Resource']]]
+[3, 'EntityType', [['Name', 'Chassis'], ['BaseType', 'Chassis.Chassis']]]
+[4, 'Property', [['Name', 'ChassisType'], ['Type', 'Chassis.v1_0_0.ChassisType']]]
+[5, 'Annotation', [['EnumMember', 'OData.Permission/Read']]]
+[4, 'Property', [['Name', 'Manufacturer'], ['Type', 'Edm.String']]]
+[5, 'Annotation', [['EnumMember', 'OData.Permission/Read']]]
+[4, 'Property', [['Name', 'Model'], ['Type', 'Edm.String']]]
+```
