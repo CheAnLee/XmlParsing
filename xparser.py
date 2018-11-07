@@ -1,4 +1,3 @@
-import sys
 import utils as lib
 
 S = ['<?', '<', '</', '/>', '>']
