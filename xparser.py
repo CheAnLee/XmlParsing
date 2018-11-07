@@ -1,3 +1,4 @@
+import sys
 import utils as lib
 
 S = ['<?', '<', '</', '/>', '>']
@@ -54,7 +55,9 @@ def parsing(fp):
 	lineNum = sum(1 for line in fp)
 	fp.seek(0)
 	idx = 0
+	action = 0
 	while idx < lineNum:
+		action = 0
 		line = fp.readline().strip()
 		lib.debugMsg("------------------ %s ------------------------" % idx)
 		# Empty line
@@ -68,7 +71,7 @@ def parsing(fp):
 			if t[1:] not in line.split()[0]:
 				lib.debugMsg("Error")
 				return None
-			layerNum -= 1
+			action = -1
 		# New Attr.
 		elif lib.isStartwith(S[1], line):
 			if (not lib.isEndwith(S[4], line)) and (not lib.isEndwith(S[3], line)):
@@ -79,9 +82,10 @@ def parsing(fp):
 				lib.debugMsg("POP  "+str(line.split()[0]))
 			else:
 				symbol.append(line.split()[0])
-				layerNum += 1
+				action = 1
 		ret.append([layerNum, classisfy(removeSign(line))])
 		idx += 1
+		layerNum += action
 		lib.debugMsg(symbol)
 
 	if symbol:
