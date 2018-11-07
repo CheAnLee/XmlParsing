@@ -1,4 +1,3 @@
-import sys
 import utils as lib
 
 S = ['<?', '<', '</', '/>', '>']
@@ -109,21 +108,3 @@ def filterBySigAndAttr(List, SigL=[], AttrL=[]):
 				tempAttrList.append([name, val])
 		ret.append([layer, sig, tempAttrList])
 	return ret
-
-def main():
-	Data = list()
-	with open(sys.argv[1] ,'r') as fp:
-		Data = parsing(fp)
-
-	SigL = ['EntityType', 'Property', 'NavigationProperty', 'Annotation']
-	AttrL = ['Name', 'BaseType', 'Type', 'EnumMember']
-	
-	Data = filterBySigAndAttr(Data, SigL, AttrL)
-	if Data:
-		for i in Data:
-			l, sig, attrs = i
-			if attrs:
-				print(i)
-
-if __name__ == "__main__":
-	main()
