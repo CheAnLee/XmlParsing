@@ -40,8 +40,18 @@ def classisfy(data):
 			name = element.split('=')[0]
 			value = element.split('=')[1][1:-1]
 			attrL.append([name, value])
-		return [signature, attrL]
-	return [signature]
+		return signature, attrL
+	return signature, []
+
+def showByLayer(List):
+	if not List or List is None:
+		return
+	layBase = List[0][0]
+	tabSize = 6
+	for element in List:
+		layer, sig, attrL = element
+		F = "%"+str((layer-layBase)*tabSize)+"s %s"
+		if attrL: print(F % ('-', element))
 
 def parsing(fp):
 	if fp is None:
@@ -82,7 +92,8 @@ def parsing(fp):
 			else:
 				symbol.append(line.split()[0])
 				action = 1
-		ret.append([layerNum, classisfy(removeSign(line))])
+		sig, attrL = classisfy(removeSign(line))
+		ret.append([layerNum, sig, attrL])
 		idx += 1
 		layerNum += action
 		lib.debugMsg(symbol)
@@ -98,10 +109,7 @@ def filterBySigAndAttr(List, SigL=[], AttrL=[]):
 
 	ret = list()
 	for element in List:
-		layer, data = element
-		if len(data) == 1:
-			continue
-		sig, attrL = data
+		layer, sig, attrL = element
 		if not set([sig]).intersection(set(SigL)):
 			continue
 		tempAttrList = list()
