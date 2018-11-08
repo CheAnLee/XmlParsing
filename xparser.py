@@ -47,7 +47,7 @@ def showByLayer(List):
 	if not List or List is None:
 		return
 	layBase = List[0][0]
-	tabSize = 6
+	tabSize = 4
 	for element in List:
 		layer, sig, attrL = element
 		F = "%"+str((layer-layBase)*tabSize)+"s %s"
